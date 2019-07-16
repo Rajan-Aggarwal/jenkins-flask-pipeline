@@ -1,8 +1,6 @@
 pipeline {
 
-    agent {
-        node { label 'python' }
-    }
+    agent any
 
     environment {
         GIT_REPO    = "https://github.com/Rajan-Aggarwal/jenkins-flask-pipeline"
@@ -37,15 +35,16 @@ pipeline {
                 junit "nosetests.xml"
             }
         }
-        stage('Build docker') {
+        stage('Build docker image') {
             steps {
                 sh "docker build -t flask-app-${BUILD_ID} ."
             }
         }
-        stage('Run docker') {
+        stage('Run docker container') {
             steps {
                 sh "docker run -p ${PORT}:${PORT} -d flask-app-${BUILD_ID}"
             }
         }
     }
+
 }
