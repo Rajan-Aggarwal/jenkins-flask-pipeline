@@ -1,4 +1,4 @@
-FROM nginx:mainline-alpine # base image
+FROM nginx:mainline-alpine
 
 # Install python and pip
 
@@ -21,7 +21,8 @@ WORKDIR /usr/src/app
 # Install requirements
 
 ADD . .
-RUN cat app/requirements.pip | xargs -n 1 pip install # skip in-case of failures
+## skip in case of failures
+RUN cat app/requirements.pip | xargs -n 1 pip install
 
 # Nginx configurations
 
